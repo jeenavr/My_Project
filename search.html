@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Search Task</title>
+    <style>
+        body {
+            font-family:'Times New Roman', Times, serif;
+            font-size: large;
+            font-weight: bold;
+            background-color: rgb(233, 218, 192);
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: medium;
+        }
+    </style>
+</head>
+<body>
+
+    <form action="/search_task" method="post">
+        <h2>Search Task</h2>
+
+        <label for="userId">User ID:</label>
+        <input type="text" id="user_id" name="user_id" required>
+
+        <button type="submit">Search</button>
+    </form>
+
+</body>
+</html>
