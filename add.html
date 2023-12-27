@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Task Details Form</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: large;
+            font-weight: bold;
+            background-color: rgb(233, 218, 192); 
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        form {
+            max-width: 400px;
+            margin: 150px auto;
+            padding: 20px;
+            background-color: #fff; 
+            border-radius: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 12px;
+            box-sizing: border-box;
+            border: 1px solid #ccc; 
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: #4caf50; 
+            color: #fff; 
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: medium;
+        }
+    </style>
+</head>
+<body>
+    <form id="taskForm" action="add_task" method="post">
+        <h2>Enter Task Details</h2>
+        <label for="user_id">User ID:</label>
+        <input type="text" id="user_id" name="user_id" required>
+    
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" required>
+    
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" rows="4" required></textarea>
+    
+        <label for="dueDate">Due Date:</label>
+        <input type="date" id="dueDate" name="due_date" required>
+    
+        <label for="status">Status:</label>
+        <input type="text" id="status" name="status" required>
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>
