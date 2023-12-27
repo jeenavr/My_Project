@@ -59,10 +59,12 @@
     <form action="/search_task" method="post">
         <h2>Search Task</h2>
 
-        <label for="userId">User ID:</label>
+        <label for="user_id">User ID:</label>
         <input type="text" id="user_id" name="user_id" required>
 
         <button type="submit">Search</button>
+        <br>
+        {{msg}}
     </form>
 
 </body>
