@@ -1,5 +1,4 @@
 from flask import Flask, redirect,render_template,request,session,url_for,flash
-from datetime import datetime
 import mysql.connector
 connection=mysql.connector.connect(
             host='localhost',
@@ -11,7 +10,6 @@ mycursor=connection.cursor()
 
 #Create a flask application
 app = Flask(__name__)
-
 app.secret_key = 'your_secret_key' 
 
 #Define a route and corresponding view Home page
@@ -27,11 +25,9 @@ def login():
 def home():
     username = request.form['username']
     password = request.form['password']
-
     authenticate_query = "SELECT * FROM users WHERE user_name = %s AND password = %s"
     mycursor.execute(authenticate_query, (username, password))
     authenticated_user = mycursor.fetchone()
-
     if authenticated_user:
         return render_template("home.html", user=username)
     else:
@@ -50,7 +46,6 @@ def register():
             check_query = "SELECT * FROM users WHERE user_name = %s"
             mycursor.execute(check_query, (username,))
             existing_user = mycursor.fetchone()
-
             if existing_user:
                 flash('Username already taken. Please choose another.', 'error')
             else:
@@ -58,13 +53,9 @@ def register():
                 data = (username,email,password,confirmpassword)
                 mycursor.execute(insert_query, data)
                 connection.commit()
-
                 flash('Registration successful! You can now log in.', 'success')
-
                 return redirect(url_for('log'))
-
     return render_template('register.html')
-
 
 @app.route('/add')
 def create():
@@ -77,13 +68,10 @@ def addtask():
     description = request.form.get('description')
     duedate = request.form.get('due_date')
     status = request.form.get('status')
-
     query = "INSERT INTO tasks (user_id, title, description, due_date, status) VALUES (%s, %s, %s, %s, %s)"
     data = (userid, tasktitle, description, duedate, status)
-
     mycursor.execute(query, data)
     connection.commit()
-
     return render_template('home.html')
 
 @app.route('/view')
@@ -96,18 +84,18 @@ def view():
 @app.route('/update')
 def update():
     return render_template('update.html')
+
 @app.route('/update_task', methods=['POST'])
 def updatetask():
     if request.method == 'POST':
         userid = request.form.get('user_id')
         status = request.form.get('status')
-
         query = "UPDATE tasks SET status = %s WHERE user_id = %s"
         sqldata = (status, userid)
         mycursor.execute(query, sqldata)
         connection.commit()
-
         return render_template('home.html')
+    
 @app.route('/search')
 def search():
     return render_template("search.html")
@@ -115,7 +103,7 @@ def search():
 @app.route('/search_task',methods=['POST'])
 def searchtask():
     userid=request.form.get('user_id')
-    query="SELECT * FROM tasks WHERE user_id LIKE '%{}%'".format(userid)
+    query = "SELECT user_id, task_id, title, description, due_date, status FROM tasks WHERE user_id = '{}'".format(userid)
     mycursor.execute(query)
     data=mycursor.fetchall()
     if not data:
@@ -130,9 +118,9 @@ def delete():
 @app.route('/delete_task', methods=['POST'])
 def deletetask():
     if request.method == 'POST':
-        taskid = request.form.get('task_id')  
-        query = "DELETE FROM tasks WHERE task_id = %s"
-        sqldata = (taskid,)
+        userid = request.form.get('user_id')  
+        query = "DELETE FROM tasks WHERE user_id = %s"
+        sqldata = (userid,)
         mycursor.execute(query, sqldata)
         connection.commit()
         return render_template('home.html')
